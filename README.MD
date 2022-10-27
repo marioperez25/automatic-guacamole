@@ -5,48 +5,46 @@ docker build -t iis-site .
 ```
 
 ## Serve
+Start localhost
 
 ```
 docker run -p 80:80 iis-site
 ```
 
+## Check\List Containers
+Get Info from all running containers
+```
+docker ps
+```
+
+## Inspect Specific Container
+
+Using ID = a8c05b39fd4c as an example
+```
+ docker inspect a8c05b39fd4c
+```
+
 ## Setting up IIS in docker
 
-
-### Enable Remote Management in the Docker image
-
-The first step to enable remote management is to install the Web-Mgmt-Service and configure it to automatically start when the container starts. Additionally, an admin user needs to be added to the container to allow the Remote IIS Manager UI to remotely connect and manage IIS
+1. Instal IIS https://hub.docker.com/_/microsoft-windows-servercore-iis
 
 ```
-FROM microsoft/iis
-
-SHELL [ "powershell" ]
-
-#setup Remote IIS management
-
-RUN Install-WindowsFeature Web-Mgmt-Service; \
-
-New-ItemProperty -Path HKLM:\software\microsoft\WebManagement\Server -Name EnableRemoteManagement -Value 1 -Force; \
-
-Set-Service -Name wmsvc -StartupType automatic;
-
-#Add user for Remote IIS Manager Login
-
-RUN net user iisadmin Password~1234 /ADD; \
-
-net localgroup administrators iisadmin /add;
+FROM mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
 ```
 
+2. Setup IIS
 
-### Add an Admin user to the container image to allow IIS Remote Manager to login
-### Connect to container using IIS Remote Manager
+Install IIS Web-Server with sub features and management tools
 
+```
+RUN powershell Get-WindowsFeature web-server
+RUN powershell Install-windowsfeature web-server
+RUN powershell add-windowsfeature web-asp-net45
+```
 
 ## Troulshooting
 
-Issues with the ports serving:
-
-In an Administrative PowerShell console, run the following:
+If Docker says a port is in even though its not, in an **Admin** PowerShell instance, run the following:
 
 ```
 Stop-Service docker
