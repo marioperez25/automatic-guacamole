@@ -47,15 +47,14 @@ RUN Start-WebAppPool "NewAppPool"
 # Create Site Directory
 RUN New-Item -ItemType Directory -Force -Path "C:\inetpub\testsite"
 
-# Copy Site files
+# Copy Site files for "TestSite"
 COPY "\dist\index.html" "C:\inetpub\testsite"
 
-# Create nes site in IIS
+# Create "TestSite" in IIS
 RUN New-IISSite -Name "TestSite" -BindingInformation "*:8080:" -PhysicalPath "C:\inetpub\testsite"
 
-# Create Web Binding
+# Create http Web Binding for "TestSite"
 RUN New-WebBinding -Name "TestSite"  -IP "*" -Port 443 -Protocol http
-
 
 # Disable Anonymous authentication on IIS PENDING CHANGE SiteName
 # RUN powershell Import-Module WebAdministration; Set-WebConfigurationProperty -Filter '/system.webServer/security/authentication/anonymousAuthentication' -Name Enabled -Value False -PSPath 'IIS:\' -Location 'SiteName'

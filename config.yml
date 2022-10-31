@@ -1,0 +1,8 @@
+# More info on docker config: https://docs.docker.com/registry/configuration/
+
+version: 1
+jobs:
+  build:
+    steps:
+      # RUN DOCKER BUILD
+      - run: docker build .

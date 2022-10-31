@@ -1,3 +1,5 @@
+# Docker Commands:
+
 ## Build
 
 ```
@@ -24,15 +26,17 @@ Using ID = a8c05b39fd4c as an example
  docker inspect a8c05b39fd4c
 ```
 
+# DcokerFile breakdown
+
 ## Setting up IIS in docker
 
-1. Instal IIS https://hub.docker.com/_/microsoft-windows-servercore-iis
+Instal IIS https://hub.docker.com/_/microsoft-windows-servercore-iis
 
 ```
 FROM mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
 ```
 
-2. Setup IIS
+Setup IIS
 
 Install IIS Web-Server with sub features and management tools
 
