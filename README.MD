@@ -1,16 +1,42 @@
+# Powershell commands:
+
+Before running any of the following commands you need to start powershell in the containers terminal:
+
+```
+powershell
+```
+
+## See IIS sites status
+
+To check the sites in your IIS instance run:
+
+``` powershell
+Get-Website
+```
+
+The output should be something like:
+```
+Name             ID   State      Physical Path                  Bindings
+----             --   -----      -------------                  --------
+Default Web Site 1    Started    %SystemDrive%\inetpub\wwwroot  http *:80:
+TestSite         1617 Stopped    C:\inetpub\testsite            http *:8080:
+                 1708                                           http *:443:
+                 51
+```
+
 # Docker Commands:
 
 ## Build
 
-```
-docker build -t iis-site .
+``` docker
+docker build -t <your-container-name-here> .
 ```
 
 ## Serve
 Start localhost
 
 ```
-docker run -p 80:80 iis-site
+docker run -p 80:80 <your-container-name-here>
 ```
 
 ## Check\List Containers
@@ -48,7 +74,7 @@ RUN powershell add-windowsfeature web-asp-net45
 
 ## Troulshooting
 
-If Docker says a port is in even though its not, in an **Admin** PowerShell instance, run the following:
+If Docker throws an error telling you that a port is in use even though its not, in an **Admin** PowerShell instance, run the following to stop the docker services and prune for the ports status:
 
 ```
 Stop-Service docker

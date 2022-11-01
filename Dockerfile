@@ -21,12 +21,12 @@ RUN Install-windowsfeature web-server
 RUN Install-WindowsFeature -Name Web-Windows-Auth –IncludeAllSubFeature
 
 # web-asp-net45
-RUN add-windowsfeature web-asp-net45
+# RUN add-windowsfeature web-asp-net45Start-IISSite
 
 # Web-Net-Ext45
 RUN add-windowsfeature Web-Net-Ext45
 
-# Web-Net-Ext45
+# Web-ISAPI-Ext
 RUN add-windowsfeature Web-ISAPI-Ext
 
 # Web-ISAPI-Filter
@@ -55,6 +55,10 @@ RUN New-IISSite -Name "TestSite" -BindingInformation "*:8080:" -PhysicalPath "C:
 
 # Create http Web Binding for "TestSite"
 RUN New-WebBinding -Name "TestSite"  -IP "*" -Port 443 -Protocol http
+
+# Start my iis site: NOT NEEDED SINCE 
+
+# RUN Start-IISSite "TestSite"
 
 # Disable Anonymous authentication on IIS PENDING CHANGE SiteName
 # RUN powershell Import-Module WebAdministration; Set-WebConfigurationProperty -Filter '/system.webServer/security/authentication/anonymousAuthentication' -Name Enabled -Value False -PSPath 'IIS:\' -Location 'SiteName'
