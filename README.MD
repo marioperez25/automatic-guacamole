@@ -1,5 +1,34 @@
 # IIS Docker Image
 
+## Docker Commands:
+
+### Build
+
+``` docker
+docker build -t <your-container-name-here> .
+```
+
+### Serve
+Start localhost
+
+```
+ docker run  <your-container-name-here> . 
+```
+
+### Check\List Containers
+Get Info from all running containers
+```
+docker ps
+```
+
+### Inspect Specific Container
+
+Using ID = a8c05b39fd4c as an example
+```
+ docker inspect a8c05b39fd4c
+```
+
+
 ## Powershell commands:
 
 Before running any of the following commands you need to start powershell in the containers terminal:
@@ -26,35 +55,7 @@ TestSite         1617 Stopped    C:\inetpub\testsite            http *:8080:
                  51
 ```
 
-## Docker Commands:
-
-### Build
-
-``` docker
-docker build -t <your-container-name-here> .
-```
-
-### Serve
-Start localhost
-
-```
-docker run -p 80:80 <your-container-name-here>
-```
-
-### Check\List Containers
-Get Info from all running containers
-```
-docker ps
-```
-
-### Inspect Specific Container
-
-Using ID = a8c05b39fd4c as an example
-```
- docker inspect a8c05b39fd4c
-```
-
-## DcokerFile breakdown
+## DockerFile breakdown
 
 ### Setting up IIS in docker
 
